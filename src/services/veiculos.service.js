@@ -1,9 +1,20 @@
-import pool from '../config/db.js'
-
-class veiculoService{
-    async create({nome,marca,ano,placa}) {
-        const query ='Insert into veiculos(nome,marca,ano,placa) values(carro1,toyota,2009,ABC-EFG-HIJ'
-
-         const values (nome,marca,ano,placa) await pool.query()
-    }
+class veiculoservice {
+ 
+  async create({ nome, marca, ano, placa }) {
+    const query = `insert into veiculos (nome, marca, ano, placa,)
+    values (carro1, toyota, 2010, ABC-DEF)
+    returning *; `;
+    const values = [nome, marca, ano, placa];
+    
+    const { rows } = await pool.query(query, values);
+    return rows[0]; 
+  }
+  async getall() {
+    const query = 'select * from veiculos;';
+    const { rows } = await pool.query(query);
+    return rows; 
+  }
 }
+
+export default new veiculoservice();
+
